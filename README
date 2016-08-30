@@ -1,0 +1,17 @@
+Install docker centos cobbler steps:
+
+step 0:
+    configure the set-env.sh and install-docker-pipework.sh
+step 1: 
+    cd Dockerfiles/centos-systemd && ./build
+step 2:
+    cd Dockerfiles/install-enable-service && ./build
+step 3:
+    cd run-contain-with-br0-network && ./run.sh
+step 4:
+    docker commit -m "finished installing docker centos cobbler." contain-id REPOSITORY_NAME:TAG
+    docker save -o docker-centos-cobbler.tar REPOSITORY_NAME:TAG 
+    docker load --input ubuntu_14.04.tar
+    # docker load < ubuntu_14.04.tar
+    
+Finished

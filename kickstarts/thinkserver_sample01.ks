@@ -22,10 +22,11 @@ network  --bootproto=dhcp --device=eth2 --onboot=off --ipv6=auto
 network  --bootproto=dhcp --device=eth3 --onboot=off --ipv6=auto
 network  --device=lo --hostname=localhost.localdomain
 # Root password
-rootpw --iscrypted "crypted-passwd"
+rootpw --iscrypted $1$2skxw8Ku$KAFm48bta2G2egcUl9inR/
+
 # System timezone
 timezone Asia/Shanghai --isUtc --nontp
-user --name=inesa --password="crypted-password"--iscrypted --gecos="inesa"
+user --name=inesa --password=$1$2skxw8Ku$KAFm48bta2G2egcUl9inR/ --iscrypted --gecos="inesa"
 # X Window System configuration information
 xconfig  --startxonboot
 #system bootloader configuration

@@ -40,6 +40,7 @@ selinux --disabled
 #skipx
 # System timezone
 timezone  Asia/Shanghai --isUtc --nontp
+user --name=inesa --password=$1$2skxw8Ku$KAFm48bta2G2egcUl9inR/  --iscrypted --gecos="inesa"
 # X Window System configuration information
 xconfig  --startxonboot
 # Install OS instead of upgrade

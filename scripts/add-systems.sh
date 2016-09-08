@@ -13,10 +13,10 @@ function add_single_system() {
     IP1=$7
     MAC2=$8 
     IP2=$9 
-    MAC3=$10
-    IP3=$11
-    NETMASK=$12
-    GATEWAY=$13
+    MAC3=${10}
+    IP3=${11}
+    NETMASK=${12}
+    GATEWAY=${13}
 
     cobbler system remove --name=${system_name}
     cobbler system add \
@@ -58,18 +58,14 @@ function add_single_system() {
 
 }
 
-#for line in `cat RD650NIC-MAC.txt`
-#do
-#    
-#done
-
 cat RD650NIC-MAC.txt | while read LINE 
 do        
-    system_name=`echo $LINE|cut -d ' ' -f 1`
-    profile=centos72-1511-istack-thinkserver.ks
-    host_name="thinkserver-${system_name}"
-    NETMASK=255.255.255.0
-    GATEWAY=192.168.1.1
+    system_name_ID=`echo $LINE|cut -d ' ' -f 1`
+    system_name="system-${system_name_ID}"
+    profile="centos72-1511-istack-thinkserver"
+    host_name="thinkserver-${system_name_ID}"
+    NETMASK="255.255.255.0"
+    GATEWAY="192.168.1.1"
 
     MAC0=`echo $LINE|cut -d ' ' -f 2`
     MAC1=`echo $LINE|cut -d ' ' -f 3`
@@ -81,7 +77,7 @@ do
     IP2=`echo $LINE|cut -d ' ' -f 8`
     IP3=`echo $LINE|cut -d ' ' -f 9`
         
-    add_single_system ${system_name} ${profile } ${host_name}  ${MAC0} ${IP0} ${MAC1} ${IP1} ${MAC2} ${IP2} ${MAC3} ${IP3} ${NETMASK} ${GATEWAY}
+    add_single_system ${system_name} ${profile} ${host_name}  ${MAC0} ${IP0} ${MAC1} ${IP1} ${MAC2} ${IP2} ${MAC3} ${IP3} ${NETMASK} ${GATEWAY}
 done
 
 

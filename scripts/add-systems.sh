@@ -23,19 +23,23 @@ function add_single_system() {
     --name=${system_name} \
     --profile=${profile} \
     --hostname=${host_name} \
-    --name-servers=203.95.1.2 \
-    --interface=eth0 \
-    --mac=${MAC0} \
-    --static=1 \
-    --ip-address=${IP0} \
-    --subnet=${NETMASK}
-
+    --name-servers=203.95.1.2
+#
+#    cobbler system edit \
+#    --name=${system_name} \
+#    --interface=eth0 \
+#    --mac=${MAC0} \
+#    --static=1 \
+#    --ip-address=${IP0} \
+#    --subnet=${NETMASK}
+#
     cobbler system edit \
     --name=${system_name} \
     --interface=eth1 \
     --mac=${MAC1} \
     --static=1 \
     --ip-address=${IP1} \
+    --if-gateway=${GATEWAY} \
     --subnet=${NETMASK}
 
     cobbler system edit \
@@ -44,7 +48,6 @@ function add_single_system() {
     --mac=${MAC2} \
     --static=1 \
     --management=true \
-    --if-gateway=${GATEWAY} \
     --ip-address=${IP2}\
     --subnet=${NETMASK}
 
@@ -65,7 +68,7 @@ do
     profile="centos72-1511-istack-thinkserver"
     host_name="thinkserver-${system_name_ID}"
     NETMASK="255.255.255.0"
-    GATEWAY="192.168.1.1"
+    GATEWAY="172.25.0.1"
 
     MAC0=`echo $LINE|cut -d ' ' -f 2`
     MAC1=`echo $LINE|cut -d ' ' -f 3`

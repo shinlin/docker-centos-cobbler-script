@@ -22,8 +22,12 @@ function add_single_system() {
     cobbler system add \
     --name=${system_name} \
     --profile=${profile} \
-    --hostname=${host_name} \
-    --name-servers=203.95.1.2
+    --hostname=${host_name}
+
+#   manually mod ifcfg-eth file
+#    --name-servers=203.95.1.2
+
+
 #
 #    cobbler system edit \
 #    --name=${system_name} \
@@ -67,8 +71,8 @@ do
     system_name="system-${system_name_ID}"
     profile="centos72-1511-istack-thinkserver"
     host_name="thinkserver-${system_name_ID}"
-    NETMASK="255.255.255.0"
-    GATEWAY="172.25.0.1"
+    NETMASK="255.255.0.0"
+    GATEWAY="172.25.127.253"
 
     MAC0=`echo $LINE|cut -d ' ' -f 2`
     MAC1=`echo $LINE|cut -d ' ' -f 3`

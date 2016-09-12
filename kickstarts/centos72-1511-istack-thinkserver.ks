@@ -40,8 +40,9 @@ selinux --disabled
 ## Do not configure the X Window System
 #skipx
 # System timezone
+# set the encrpted password such as "openssl passwd -1 "
 timezone  Asia/Shanghai --isUtc --nontp
-user --name=inesa --password=xxxxxxxxdfasdfasfasdfasdfasfasdf --iscrypted --gecos="inesa"
+user --name=inesa --password=your_encrypted_password --iscrypted --gecos="inesa"
 # X Window System configuration information
 xconfig  --startxonboot
 # Install OS instead of upgrade
@@ -165,7 +166,20 @@ EOF
 /usr/bin/sed -i "s/rhgb quiet/numa=off rhgb quiet/" /etc/default/grub
 /usr/sbin/grub2-mkconfig -o /boot/grub2/grub.cfg
 
+# Set LENOVE IMPI 
+ip_impi_part=$(cat /etc/sysconfig/network-scripts/ifcfg-eth1 |grep IPADDR|awk -F "." '{print $4}' )
+ip_impi="172.25.128.${ip_impi_part}"
+ipmitool lan set 1 ipsrc static
+ipmitool lan set 1 ipaddress ${ip_impi}
+ipmitool lan set 1 netmask 255.255.0.0
+# set the real password
+ipmitool user set password 2 your_password 
+#ipmitool -I lan -H  172.25.128.13 -U lenovo -P your_password lan print 1
+
+# Set Network Parameter 
 sed -i 's/BOOTPROTO=none/BOOTPROTO=static/g' /etc/sysconfig/network-scripts/ifcfg-eth*
+echo "DNS1=203.95.1.2">>/etc/sysconfig/network-scripts/ifcfg-eth1
+echo "DNS2=203.95.7.1">>/etc/sysconfig/network-scripts/ifcfg-eth1
 
 # Enable post-install boot notification
 $SNIPPET('post_anamon')
